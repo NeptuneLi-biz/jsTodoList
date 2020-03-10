@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.Vue Todo List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/all.css">
+</head>
+<body>
+    <div id="app" class="container my-3">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">待辦事項</span>
+            </div>
+            <input type="text" class="form-control" placeholder="準備要做的任務">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">新增</button>
+            </div>
+        </div>
+        <div class="card text-center">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">全部</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">進行中</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">已完成</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="list-group list-group-flush text-left">
+                <li class="list-group-item">
+                    <div class="d-flex">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a1">
+                            <label class="form-check-label" for="a1">
+                                Cras justo odio
+                            </label>
+                        </div>
+                        <button type="button" class="close ml-auto" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="d-flex">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="a1">
+                            <label class="form-check-label completed" for="a1">
+                                Cras justo odio
+                            </label>
+                        </div>
+                        <button type="button" class="close ml-auto" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <input type="text" class="form-control">
+                </li>
+            </ul>
+            <div class="card-footer d-flex justify-content-between">
+                <span>還有 3 筆任務未完成</span>
+                <a href="#">清除所有任務</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+    <script src="/js/all.js"></script>
+</body>
+</html>
