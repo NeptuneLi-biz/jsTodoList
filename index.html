@@ -13,59 +13,62 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">待辦事項</span>
             </div>
-            <input type="text" class="form-control" placeholder="準備要做的任務">
+            <input type="text" class="form-control" placeholder="準備要做的任務"
+            v-model="newTodo" @keypress.enter="addTodo();">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">新增</button>
+                <button class="btn btn-primary" type="button"
+                @click="addTodo();">新增</button>
             </div>
         </div>
         <div class="card text-center">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">全部</a>
+                        <a class="nav-link" href="#"
+                        v-bind:class="{'active': nowTab === 'all'}"
+                        @click="nowTab='all'">全部 ({{ todo.length }})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">進行中</a>
+                        <a class="nav-link" href="#"
+                        v-bind:class="{'active': nowTab === 'doing'}"
+                        @click="nowTab='doing'">進行中 ({{ doingLen }})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">已完成</a>
+                        <a class="nav-link" href="#"
+                        v-bind:class="{'active': nowTab === 'done'}"
+                        @click="nowTab='done'">已完成 ({{ doneLen }})</a>
                     </li>
                 </ul>
             </div>
             <ul class="list-group list-group-flush text-left">
-                <li class="list-group-item">
-                    <div class="d-flex">
+                <li class="list-group-item" v-for="item in filterTodo" @dblclick="editTodo(item)">
+                    <div class="d-flex"
+                    v-if="item.id !== tempTodo.id">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="a1">
-                            <label class="form-check-label" for="a1">
-                                Cras justo odio
+                            <input type="checkbox" class="form-check-input"
+                            v-bind:id="item.id"
+                            v-model="item.completed"
+                            @click="countingDoingTodo();">
+                            <label class="form-check-label"
+                            v-bind:class="{'completed': item.completed}">
+                                {{ item.title }}
                             </label>
                         </div>
-                        <button type="button" class="close ml-auto" aria-label="Close">
+                        <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(item)">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="d-flex">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="a1">
-                            <label class="form-check-label completed" for="a1">
-                                Cras justo odio
-                            </label>
-                        </div>
-                        <button type="button" class="close ml-auto" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control"
+                    v-if="item.id === tempTodo.id"
+                    @keyup.esc="quitEditTodo()"
+                    @blur="quitEditTodo()"
+                    @keypress.enter="successEditTodo()"
+                    v-model="tempTitle">
                 </li>
             </ul>
             <div class="card-footer d-flex justify-content-between">
-                <span>還有 3 筆任務未完成</span>
-                <a href="#">清除所有任務</a>
+                <span>還有 {{ doingLen }} 筆任務未完成</span>
+                <a href="#" @click="removeAllTodo();">清除所有任務</a>
             </div>
         </div>
     </div>
